@@ -1,0 +1,77 @@
+openapi: 3.0.0
+info:
+  title: Cisco exercise
+  version: 1.0.0
+  contact:
+    name: Bence Csik
+    url: https://github.com/csikb
+tags:
+  - name: Phone
+    description: "REST operations for phones"
+  - name: User
+    description: "REST operations for users"
+paths:
+  /api/user:
+    post:
+      summary: "Add a user to the system"
+      tags:
+        - User
+    get:
+      summary: "List users in the system"
+      tags:
+        - User
+  /api/user/{userId}:
+    delete:
+      summary: "Delete a user from the system"
+      tags:
+        - User
+  /api/phone/byUser/{userId}:
+    get:
+      summary: "List a user's phones"
+      tags:
+        - Phone
+  /api/phone/{phoneId}:
+    delete:
+      summary: "Delete a user's phone"
+      tags:
+        - Phone
+  /api/user/{userId}/preferred/{phoneId}:
+    put:
+      summary: "Update a user's preferred phone number"
+      tags:
+        - User
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        userId:
+          type: string
+          format: uuid
+        userName:
+          type: string
+        password:
+          type: string
+        emailAddress:
+          type: string
+        preferredPhoneNumber:
+          type: string
+    Phone:
+      type: object
+      properties:
+        phoneId:
+          type: string
+          format: uuid
+        phoneName:
+          type: string
+        phoneModel:
+          $ref: '#/components/schemas/PhoneModel'
+        phoneNumber:
+          type: string
+    PhoneModel:
+      type: string
+      enum:
+        - IPHONE
+        - ANDROID
+        - DESK_PHONE
+        - SOFT_PHONE
