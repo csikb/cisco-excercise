@@ -30,3 +30,6 @@ Gradle:
 ```shell
 ./gradlew bootRun
 ```
+
+### Docs
+You can access the API docs at the root path.

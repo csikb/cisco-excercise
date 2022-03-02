@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -24,8 +25,8 @@ public class PhoneController {
     @Autowired
     private final PhoneService service;
 
-    @GetMapping("/byUser/{userId}")
-    public ResponseEntity<List<Phone>> getAllPhonesByUser(@PathVariable("userId") final UUID userId) {
+    @GetMapping
+    public ResponseEntity<List<Phone>> getAllPhonesByUser(@RequestParam("userId") final UUID userId) {
         final var allPhoneByUser = service.findAllPhoneByUser(userId);
         return ResponseEntity.ok(allPhoneByUser);
     }

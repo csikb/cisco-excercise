@@ -2,6 +2,13 @@ openapi: 3.0.0
 info:
   title: Cisco exercise
   version: 1.0.0
+  description: "I spent around 3 hours to create this project.
+                I used my Spring template as the base of the project.
+                Because of the time constraint I only did two unit tests.
+                If you run the test you might see that they are failing,
+                it's because I set high code coverage.
+                Usually I would use my integration tes framework to make sure everything works 100%.
+                I only tested the application manually. Using this page you can try it too."
   contact:
     name: Bence Csik
     url: https://github.com/csikb
@@ -16,37 +23,149 @@ paths:
       summary: "Add a user to the system"
       tags:
         - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUser'
+      responses:
+        201:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
     get:
       summary: "List users in the system"
       tags:
         - User
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
   /api/user/{userId}:
+    get:
+      summary: "Find a user in the system"
+      tags:
+        - User
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
     delete:
       summary: "Delete a user from the system"
       tags:
         - User
-  /api/phone/byUser/{userId}:
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: OK
+  /api/phone:
     get:
       summary: "List a user's phones"
       tags:
         - Phone
-  /api/phone:
+      parameters:
+        - in: query
+          required: true
+          name: userId
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
     post:
       summary: "Add a phone to a user"
       tags:
         - Phone
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePhone'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
   /api/phone/{phoneId}:
     delete:
       summary: "Delete a user's phone"
       tags:
         - Phone
+      parameters:
+        - in: path
+          name: phoneId
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
   /api/user/{userId}/preferred/{phoneId}:
     put:
       summary: "Update a user's preferred phone number"
       tags:
         - User
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: string
+            format: uuid
+        - in: path
+          name: phoneId
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
 components:
   schemas:
+    CreateUser:
+      type: object
+      properties:
+        userName:
+          type: string
+        password:
+          type: string
+        emailAddress:
+          type: string
     User:
       type: object
       properties:
@@ -60,6 +179,18 @@ components:
         emailAddress:
           type: string
         preferredPhoneNumber:
+          type: string
+    CreatePhone:
+      type: object
+      properties:
+        userId:
+          type: string
+          format: uuid
+        phoneName:
+          type: string
+        phoneModel:
+          $ref: '#/components/schemas/PhoneModel'
+        phoneNumber:
           type: string
     Phone:
       type: object
