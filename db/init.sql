@@ -13,6 +13,12 @@ CREATE TABLE cisco_exercise.phone_model
     model TEXT PRIMARY KEY
 );
 
+INSERT INTO cisco_exercise.phone_model (model)
+VALUES ('IPHONE'),
+       ('ANDROID'),
+       ('DESK_PHONE'),
+       ('SOFT_PHONE');
+
 CREATE TABLE cisco_exercise.phone
 (
     id           UUID PRIMARY KEY DEFAULT gen_random_uuid(),

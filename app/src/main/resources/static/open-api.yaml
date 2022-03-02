@@ -30,6 +30,11 @@ paths:
       summary: "List a user's phones"
       tags:
         - Phone
+  /api/phone:
+    post:
+      summary: "Add a phone to a user"
+      tags:
+        - Phone
   /api/phone/{phoneId}:
     delete:
       summary: "Delete a user's phone"
