@@ -53,7 +53,7 @@ public class DefaultUserService implements UserService {
         final var phone = phoneRepository.findById(phoneId)
             .orElseThrow(() -> new RuntimeException("Phone not found with phoneId: " + phoneId));
 
-        if (phone.getUserId() != userId) {
+        if (!phone.getUserId().equals(userId)) {
             LOG.info("Can not assign phone to user. Phone belongs to other user.");
             throw new RuntimeException("Can not assign phone to user. Phone belongs to other user.");
         }
