@@ -1,4 +1,9 @@
 # Cisco exercise project
+
+## Docs
+You can access the API docs at the root path. `localhost:8080/`  
+Just run the application using one of the methods below.
+
 ## Development
 ### Lint
 ```shell
@@ -18,18 +23,15 @@ Gradle:
 ./gradlew build
 ```
 ### Run
-Docker:
-```shell
-docker run cisco-exercise
-```
 Docker compose:
 ```shell
 docker compose up
+```
+Docker:
+```shell
+docker run cisco-exercise
 ```
 Gradle:
 ```shell
 ./gradlew bootRun
 ```
-
-### Docs
-You can access the API docs at the root path.
